@@ -1,0 +1,1199 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass article
+\begin_preamble
+\date{}
+\end_preamble
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry true
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\use_minted 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\leftmargin 3cm
+\topmargin 3cm
+\rightmargin 3cm
+\bottommargin 3cm
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\author 275947029 "trung"
+\end_header
+
+\begin_body
+
+\begin_layout Title
+OS01 project: 
+\begin_inset Newline newline
+\end_inset
+
+Lagrangian relaxation for the travelling salesman problem
+\end_layout
+
+\begin_layout Section*
+1.
+ General principle of Lagrangian relaxation.
+\end_layout
+
+\begin_layout Standard
+Consider a mathematical program 
+\begin_inset Formula $\left(P\right)$
+\end_inset
+
+ with a vector 
+\begin_inset Formula $x$
+\end_inset
+
+ of 
+\begin_inset Formula $n$
+\end_inset
+
+ variables and 
+\begin_inset Formula $m$
+\end_inset
+
+ constraints.
+ 
+\begin_inset Formula $f$
+\end_inset
+
+ is the objective function and 
+\begin_inset Formula $g_{i}\left(x\right)$
+\end_inset
+
+ are the constraint functions.
+ 
+\begin_inset Formula $S$
+\end_inset
+
+ is a subset of 
+\begin_inset Formula $\mathbb{R}{}^{n}$
+\end_inset
+
+ defined by other constraints.
+ For example, for an integer linear programming, 
+\begin_inset Formula $f$
+\end_inset
+
+ and 
+\begin_inset Formula $g_{i}$
+\end_inset
+
+ are linear and 
+\begin_inset Formula $S=\mathbb{N}^{n}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\left(P\right)\begin{cases}
+min\,z=f\left(x\right)\\
+g_{i}\left(x\right)\leq0,\,i=1,...\,m\\
+x\in S
+\end{cases}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Lagrangian relaxation (LR) consists of multiplying the 
+\begin_inset Formula $g_{i}\left(x\right)$
+\end_inset
+
+ by the weights 
+\begin_inset Formula $\pi_{i}$
+\end_inset
+
+ and adding them to 
+\begin_inset Formula $z$
+\end_inset
+
+.
+ The weights are called 
+\shape italic
+Lagrange multipliers
+\shape default
+ or 
+\shape italic
+dual variables
+\shape default
+.
+ They are real positive or zero for constraints of inequality, and of any
+ sign for constraints of equality.
+ By denoting 
+\begin_inset Formula $g(x)$
+\end_inset
+
+ the vector of the 
+\begin_inset Formula $g_{i}\left(x\right)$
+\end_inset
+
+, we obtain the 
+\shape italic
+Lagrangian function 
+\begin_inset Formula $L\left(x,\text{\ensuremath{\pi}}\right)=f\left(x\right)+\pi.g\left(x\right)$
+\end_inset
+
+
+\shape default
+.
+ The 
+\shape italic
+dual function
+\shape default
+ 
+\begin_inset Formula $L\left(\pi\right)$
+\end_inset
+
+ gives the minimum of the Lagrangian function for 
+\begin_inset Formula $\pi$
+\end_inset
+
+ fixed, that is 
+\begin_inset Formula $L\left(\pi\right)=min_{x\in S}L\left(x,\pi\right)$
+\end_inset
+
+.
+ We call the computation of the dual function for fixed 
+\begin_inset Formula $\pi$
+\end_inset
+
+ a 
+\shape italic
+Lagrangian problem
+\shape default
+.
+\end_layout
+
+\begin_layout Section*
+2.  Solving the dual by a subgradient method.
+\end_layout
+
+\begin_layout Standard
+We use a method of successive increases based on 
+\shape italic
+subgradients
+\shape default
+.
+ Specifically, we choose a subgradient, we make a small displacement 
+\begin_inset Formula $\lambda$
+\end_inset
+
+ in its direction, then we use a new subgradient at the resulting point.
+ The general structure of a subgradient algorithm is:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Enumerate
+Initialize the multiplier vector 
+\begin_inset Formula $\pi$
+\end_inset
+
+ and the lower bound 
+\begin_inset Formula $LB$
+\end_inset
+
+ to zero.
+\end_layout
+
+\begin_layout Enumerate
+Initialize the iteration number 
+\begin_inset Formula $j$
+\end_inset
+
+ to zero.
+\end_layout
+
+\begin_layout Enumerate
+
+\series bold
+Repeat
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula $\quad$
+\end_inset
+
+
+\begin_inset Formula $j\shortleftarrow j+1$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $\quad$
+\end_inset
+
+Calculate the minimum of the dual function in 
+\begin_inset Formula $\pi$
+\end_inset
+
+:
+\end_layout
+
+\begin_layout Enumerate
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $\quad$
+\end_inset
+
+
+\begin_inset Formula $L\left(\pi\right)=f\left(y\right)+\pi.g\left(y\right)=min_{x\in S}{f(x)+\pi.g(x)}$
+\end_inset
+
+,
+\begin_inset Formula $\,$
+\end_inset
+
+(
+\begin_inset Formula $\gamma\left(\pi\right)=g(y)$
+\end_inset
+
+ is a subgradient of 
+\begin_inset Formula $L$
+\end_inset
+
+ in 
+\begin_inset Formula $\pi$
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Enumerate
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $\quad$
+\end_inset
+
+
+\family default
+\series bold
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+If
+\series default
+ 
+\begin_inset Formula $L\left(\pi\right)>LB$
+\end_inset
+
+, 
+\series bold
+then
+\series default
+ 
+\begin_inset Formula $LB\shortleftarrow L(\pi)$
+\end_inset
+
+ 
+\series bold
+end if.
+\end_layout
+
+\begin_layout Enumerate
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $\quad$
+\end_inset
+
+
+\family default
+\series bold
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+If
+\series default
+ 
+\begin_inset Formula $\left\Vert \gamma\left(\pi\right)\right\Vert >\epsilon$
+\end_inset
+
+, 
+\series bold
+then
+\series default
+: 
+\end_layout
+
+\begin_layout Enumerate
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $\quad$
+\end_inset
+
+
+\begin_inset Formula $\quad$
+\end_inset
+
+Determine the step 
+\begin_inset Formula $\lambda_{j}$
+\end_inset
+
+ for this iteration.
+\end_layout
+
+\begin_layout Enumerate
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $\quad$
+\end_inset
+
+
+\begin_inset Formula $\quad$
+\end_inset
+
+Calculate the next point: 
+\begin_inset Formula $\pi\shortleftarrow\pi+\lambda_{j}.\gamma\left(\pi\right)/\left\Vert \gamma\left(\pi\right)\right\Vert $
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Enumerate
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $\quad$
+\end_inset
+
+
+\begin_inset Formula $\quad$
+\end_inset
+
+For any inequality constraint 
+\begin_inset Formula $i$
+\end_inset
+
+, force 
+\begin_inset Formula $\pi_{i}$
+\end_inset
+
+ to zero if it is negative.
+\end_layout
+
+\begin_layout Enumerate
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $\quad$
+\end_inset
+
+
+\begin_inset Formula $\quad$
+\end_inset
+
+Update the step 
+\begin_inset Formula $\lambda$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Enumerate
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $\quad$
+\end_inset
+
+
+\family default
+\series bold
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+End if
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+.
+\end_layout
+
+\begin_layout Enumerate
+
+\series bold
+Until
+\series default
+ (
+\begin_inset Formula $j=j_{max}$
+\end_inset
+
+) ou (
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\left\Vert \gamma\left(\pi\right)\right\Vert <\epsilon$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+) ou (
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $LB=UB$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+) ou (
+\begin_inset Formula $y$
+\end_inset
+
+ is primal-achievable).
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The dual function may temporarily decrease or oscillate, therefore it is
+ better to update the lower bound (
+\begin_inset Formula $LB$
+\end_inset
+
+) every time it is improved (line 7).
+ 
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+There are four stopping cases (line 14).
+ The first is a maximum number of iterations 
+\begin_inset Formula $j_{max}$
+\end_inset
+
+ when the convergence is too slow.
+ The second is when the norm of the subgradient becomes less than a precision
+ 
+\begin_inset Formula $\epsilon$
+\end_inset
+
+: the solution of the dual is then optimal, but not necessarily for the
+ primal because of the duality jump.
+ The third case is the attainment of an upper bound (
+\begin_inset Formula $UB$
+\end_inset
+
+) provided by a heuristic: we know then that the bound and the heuristic
+ are optimal.
+ Finally, for some problems, the solution of the Lagrangian problem can
+ meet all the constraints of (
+\begin_inset Formula $P$
+\end_inset
+
+).
+ It is therefore optimal for (
+\begin_inset Formula $P$
+\end_inset
+
+) and we can stop the subgradient method.
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Here are three examples of classic rules to update the step 
+\begin_inset Formula $\lambda_{j}$
+\end_inset
+
+ used at iteration 
+\begin_inset Formula $j$
+\end_inset
+
+:
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+R1 - Constant step
+\series default
+:
+\end_layout
+
+\begin_layout Standard
+This is the simplest rule: the 
+\begin_inset Formula $\lambda_{j}$
+\end_inset
+
+ are all equal to a positive constant 
+\begin_inset Formula $\lambda$
+\end_inset
+
+, for example 
+\begin_inset Formula $\lambda=1$
+\end_inset
+
+.
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+R2 - Rule of divergent series
+\series default
+:
+\end_layout
+
+\begin_layout Standard
+It is showed that 
+\begin_inset Formula $L\left(\pi\right)$
+\end_inset
+
+ converges towards the optimum if 
+\begin_inset Formula $\lambda_{j}$
+\end_inset
+
+ form a divergent sequence: 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\lambda_{j}\shortrightarrow0\,(j\shortrightarrow+\infty)$
+\end_inset
+
+ and 
+\begin_inset Formula $\sum_{j=1}^{\infty}\lambda_{j}=+\infty$
+\end_inset
+
+
+\change_inserted 275947029 1644555498
+
+\end_layout
+
+\begin_layout Standard
+An simple example is 
+\begin_inset Formula $\lambda_{j}=\nicefrac{1}{j}$
+\end_inset
+
+.
+ The convergence is sometimes very slow.
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+R3 — Rule of convergent series
+\series default
+:
+\end_layout
+
+\begin_layout Standard
+This rule works well in practice but can converge to a non-optimal point.
+ We utilize 
+\begin_inset Formula $\lambda_{j}=\sigma.\alpha^{j}$
+\end_inset
+
+, where 
+\begin_inset Formula $\sigma$
+\end_inset
+
+ is  a positive constant and 
+\begin_inset Formula $0<\alpha<1$
+\end_inset
+
+.
+ To avoid a convergence towards a non-optimal point, it is better off taking
+ 
+\begin_inset Formula $\alpha$
+\end_inset
+
+ fairly close to 1 and 
+\begin_inset Formula $\sigma$
+\end_inset
+
+ rather large.
+\end_layout
+
+\begin_layout Section*
+3.
+ Lagrangian relaxation for the traveling salesman problem.
+\end_layout
+
+\begin_layout Standard
+This is the first application of LR to combinatorial optimization.
+ Previously, the method was only used in nonlinear optimization.
+ The traveling salesman problem (TSP) is defined by considering a complete
+ non-oriented graph 
+\begin_inset Formula $G$
+\end_inset
+
+ of 
+\begin_inset Formula $n$
+\end_inset
+
+ nodes, with a matrix 
+\begin_inset Formula $C$
+\end_inset
+
+ of size 
+\begin_inset Formula $n\times n$
+\end_inset
+
+ giving the costs of edges.
+ We need to find a minimum cost cycle that starts from the depot (node 1),
+ visits each node once, and returns to the depot.
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+A cycle-free graph that connects all nodes is called a 
+\shape italic
+spanning tree
+\shape default
+.
+ The computation of a spanning tree 
+\begin_inset Formula $G$
+\end_inset
+
+ is possible with Prim's algorithm.
+ At each iteration, 
+\begin_inset Formula $A$
+\end_inset
+
+ is the set of edges in the tree, 
+\begin_inset Formula $S$
+\end_inset
+
+ the set of connected nodes, and 
+\begin_inset Formula $h$
+\end_inset
+
+ the total cost (distance):
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Enumerate
+Start from a tree reduced to node 1:  
+\begin_inset Formula $S\shortleftarrow\left\{ 1\right\} $
+\end_inset
+
+, 
+\begin_inset Formula $A\shortleftarrow\textrm{Ø}$
+\end_inset
+
+ , 
+\begin_inset Formula $h\shortleftarrow0$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Enumerate
+
+\series bold
+For
+\series default
+ iteration 1 
+\series bold
+to
+\series default
+ n - 1 
+\series bold
+do
+\series default
+:
+\end_layout
+
+\begin_layout Enumerate
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $\quad$
+\end_inset
+
+Determine the edge 
+\begin_inset Formula $\left[i,j\right]$
+\end_inset
+
+ of minimal cost, with 
+\begin_inset Formula $i\in S$
+\end_inset
+
+ and 
+\begin_inset Formula $j\notin S$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $\quad$
+\end_inset
+
+
+\begin_inset Formula $h\shortleftarrow h+C_{ij}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $\quad$
+\end_inset
+
+
+\begin_inset Formula $S\shortleftarrow S\cup\left\{ j\right\} $
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $\quad$
+\end_inset
+
+
+\begin_inset Formula $A\shortleftarrow A\cup\left\{ \left[i,j\right]\right\} $
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+
+\series bold
+End for
+\series default
+.
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The degree 
+\begin_inset Formula $D\left(i\right)$
+\end_inset
+
+ of a node 
+\begin_inset Formula $i$
+\end_inset
+
+ in a graph is the number of edges incident to 
+\begin_inset Formula $i$
+\end_inset
+
+.
+ A 
+\shape italic
+1-tree
+\shape default
+ is a tree spanning nodes from 2 to 
+\begin_inset Formula $n$
+\end_inset
+
+, plus two edges incident to node 1.
+ It is easy to see that a 1-tree is formed by a cycle passing through node
+ 1, with possibly some trees grafted to this cycle.
+ A solution of the TSP is a special case of 1-tree, where all nodes are
+ on the cycle and thus all have degree 2.
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Therefore, the cost of an optimal 1-tree is a lower bound of the optimal
+ cost for the TSP.
+ Moreover, if the optimal 1-tree has all its nodes of degree 2, it is also
+ the optimal solution for the TSP.
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+To compute an optimal 1-tree, it is sufficient to adapt Prim's algorithm:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Enumerate
+Compute a spanning tree on nodes 2 to 
+\begin_inset Formula $n$
+\end_inset
+
+ with Prim's algorithm (starting at node 2).
+\end_layout
+
+\begin_layout Enumerate
+Add the two smallest incident edges to node 1.
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document
