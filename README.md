@@ -1,5 +1,6 @@
 # Lagrangian Relaxation for the traveling salesman problem
 
+## Introduction
 This mini-project is realized within the course _0S01 - Fondements de la Recherche Opérationnelle_ (_Fundamentals of Operations Research_) for student of the Master program _Optimisation et Securité des Systèmes_ (_Optimization and Systems Safety_)__, semester Autumn 2012 at University of Technology of Troyes (France).
 
 Hereafter, I present firstly ... Next, ..
@@ -9,10 +10,10 @@ The original French document [Relaxation-lagrangienne-pour-le-probleme-du-voyage
 The report (in French) of the project is at [OS01_Rapport-du-projet](/OS01_Rapport-du-projet.pdf). 
 
 The algorithms in this project are implemented using Matlab.
-We can find all source programs (`.m` files), that have been optimized for code performance (speed, memory) and clarification, together with a synthesis note at folder [Matlab-code](/Matlab-code/). 
+We can find all source programs (`.m` files), that have been optimized for code performance (speed, memory) and clarification, together with a related [synthesis note](/Matlab-code/Notes.md) at folder [Matlab-code](/Matlab-code/). 
 
 
-### Test data
+## Test data
 There are 5 test files in folder “TSPLIB”: 
 bier127.tsp
 eil51.tsp
@@ -28,9 +29,9 @@ We can copy these files into Excel sheets and simplify the format if you wish. F
 
 
 
-### Task assignements
+## Task assignements
 - **Task 5** - _Evaluation of the method on test problems_.  
 For 5 test files in folder “TSPLIB”, compute the value of LB for rules R1, R2, R3, the value of UB, and the difference between LB and UB in %. For R2, use Lambda_j = 1/j. For R3, use delta = 50 and alpha = 0.9. 
 
 - **Task 6** - _Statistical evaluation_.
-Generate randomly 100 problems, each contains 30 nodes by using function Random_TSP and specify for each rule the average difference between UB and LB in %, and the number of problems where the algorithm 1_Tree is an optimal solution of the TSP. 
+Generate randomly 100 problems, each contains 30 nodes and specify for each rule the average difference between UB and LB in %, and the number of problems where the algorithm 1_Tree is an optimal solution of the TSP. 
