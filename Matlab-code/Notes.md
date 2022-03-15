@@ -11,7 +11,7 @@
 - The functions `Sub_Gradient_R1.m`, `Sub_Gradient_R2.m`, `Sub_Gradient_R3.m` are three variants (make a footnote here, that cites to paragraph "example of classis rules" in the end of section 2, document Theory-Foundation_brief.pdf)
 that apply method subgradient to compute the aggregate distance of the journey. Specifically, the only difference between these three functions is at the way they update the value of step "lambda" used in method subgradient. Below is three classic rules[^1] to update "lambda":
 
-[^1:] See section 2: [**Solving the dual by a subgradient method**](/Theory-Foundation_brief.pdf).
+[^1]: See section 2: [**Solving the dual by a subgradient method**](/Theory-Foundation_brief.pdf).
 <br>
 
 ![](/Matlab-code/R1-Constant-step.PNG)
