@@ -338,11 +338,11 @@ Calculate the minimum of the dual function in
 \end_inset
 
 
-\begin_inset Formula $L\left(\pi\right)=f\left(y\right)+\pi.g\left(y\right)=min_{x\in S}{f(x)+\pi.g(x)}$
+\begin_inset Formula $L\left(\pi\right)=f\left(y\right)+\pi.g\left(y\right)=min_{x\in S}\left\{ f(x)+\pi.g(x)\right\} $
 \end_inset
 
 ,
-\begin_inset Formula $\,$
+\begin_inset Formula $\quad$
 \end_inset
 
 (
@@ -695,6 +695,10 @@ Until
 
 \begin_layout Plain Layout
 
+\shape italic
+General structure of a subgradient method
+\shape default
+.
 \end_layout
 
 \end_inset
@@ -780,6 +784,10 @@ Here are three examples of classic rules to update the step
 R1 - Constant step
 \series default
 :
+\begin_inset Newline newline
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -808,6 +816,10 @@ This is the simplest rule: the
 R2 - Rule of divergent series
 \series default
 :
+\begin_inset Newline newline
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -823,11 +835,11 @@ It is showed that
 \end_layout
 
 \begin_layout Standard
-\begin_inset Formula $\lambda_{j}\shortrightarrow0\,(j\shortrightarrow+\infty)$
-\end_inset
+\begin_inset Formula 
+\[
+\lambda_{j}\shortrightarrow0\,(j\shortrightarrow+\infty)\quad and\quad\sum_{j=1}^{\infty}\lambda_{j}=+\infty
+\]
 
- and 
-\begin_inset Formula $\sum_{j=1}^{\infty}\lambda_{j}=+\infty$
 \end_inset
 
 
@@ -854,6 +866,10 @@ An simple example is
 R3 — Rule of convergent series
 \series default
 :
+\begin_inset Newline newline
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -1099,6 +1115,10 @@ End for
 
 \begin_layout Plain Layout
 
+\shape italic
+Prim's algorithm
+\shape default
+.
 \end_layout
 
 \end_inset
