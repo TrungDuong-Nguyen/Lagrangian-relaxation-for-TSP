@@ -19,7 +19,7 @@
 
 <br>
 
-     Notice that the functions Sub_Gradient internally call to function `One_Tree.m` as method subgradient is implemented on the basis of algorithm _"1_Tree"_.
+Notice that the functions Sub_Gradient internally call to function `One_Tree.m` as method subgradient is implemented on the basis of algorithm _"1_Tree"_.
 
 - Two functions `plot_Cycle.m` and `plot_Aretes.m` are used to draw the path found using methods _Farthest Insertion_ and _Subgradient_, respectively.
 
