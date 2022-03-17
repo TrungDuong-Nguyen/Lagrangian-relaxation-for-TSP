@@ -1,7 +1,7 @@
 # Lagrangian Relaxation for the traveling salesman problem
 
 ## Introduction
-This mini-project is realized within the course _0S01 - Fondements de la Recherche Opérationnelle_ (Fundamentals of Operations Research) for student of the Master program _Optimisation et Securité des Systèmes_ (Optimization and Systems Safety), semester Autumn 2012, at University of Technology of Troyes (France).
+This mini-project is realized within the course _0S01 - Fondements de la Recherche Opérationnelle_ (Fundamentals of Operations Research) for student of the Master program _Optimisation et Securité des Systèmes_ (Optimization and Systems Safety), semester Autumn 2012, at University of Technology of Troyes, France.
 
 The original French document [Relaxation-lagrangienne-pour-le-probleme-du-voyageur-de-commerce](/Relaxation-lagrangienne-pour-le-probleme-du-voyageur-de-commerce.pdf) presents the theory foundations, algorithms, as well as task assignments of the project. I selectively translate some important parts of this document into English at [Theory-foundation_brief](/Theory-Foundation_brief.pdf). 
 
@@ -33,7 +33,7 @@ We can copy these files into Excel sheets and simplify the format. For example, 
 
 ## Task assignements
 - **Task 5** - _Evaluation of the method on test problems_.  
-For 5 test files in folder [TSPLIB](/Test-data/TSPLIB/), compute the value of _LB_ for rules _R1_, _R2_, _R3_, the value of _UB_, and the difference between _LB_ and _UB_ in _%_. For _R2_, use _Lambda_j = 1/j_. For _R3_, use _sigma = 50_ and _alpha = 0.9_. 
+For 5 test files in folder [TSPLIB](/Test-data/TSPLIB/), compute the value of _LB_ for rules _R1_, _R2_, _R3_, the value of _UB_, and the difference between _LB_ and _UB_ in %. For _R2_, use _λj = 1/j_. For _R3_, use _σ = 50_ and _α = 0.9_. 
 
 - **Task 6** - _Statistical evaluation_.
-Generate randomly 100 problems, each contains 30 nodes and specify for each rule the average difference between _UB_ and _LB_ in _%_, and the number of problems where the algorithm _"1_Tree"_ is an optimal solution of the TSP. 
+Generate randomly 100 problems, each contains 30 nodes and specify for each rule the average difference between _UB_ and _LB_ in %, and the number of problems where the algorithm _"1_Tree"_ is an optimal solution of the TSP. 
